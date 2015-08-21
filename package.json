@@ -1,6 +1,6 @@
 {
   "name": "mini-react-store",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "no flux, only mini store for react",
   "main": "build/index.js",
   "scripts": {
@@ -22,10 +22,10 @@
   "author": "haoxin",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-core": "^5.8.22",
-    "babel-loader": "^5.3.2",
-    "react": "^0.13.3",
-    "webpack": "^1.11.0"
+    "babel": "5",
+    "babel-core": "5",
+    "babel-loader": "5",
+    "react": "0",
+    "webpack": "1"
   }
 }

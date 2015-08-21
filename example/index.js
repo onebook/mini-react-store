@@ -53,24 +53,27 @@ class Item1 extends React.Component {
       }
     }
 
-    store.register('title', (title) => {
+    store.addListener('title', (title) => {
       this.setState({
         title: title
       })
     })
 
-    store.register('items', (items) => {
+    store.addListener('items', (items) => {
       this.setState({
         count: items.length,
         item: items[items.length - 1]
       })
     })
+
+    store.track('title', 'trackedTitle', this)
   }
 
   render() {
     return (
       <div>
         <p>{this.state.title}</p>
+        <p>{this.state.trackedTitle}</p>
         <p>
           <div>{this.state.count}</div>
           <div>{this.state.item.name}</div>
@@ -93,13 +96,13 @@ class Item2 extends React.Component {
       }
     }
 
-    store.register('title', (title) => {
+    store.addListener('title', (title) => {
       this.setState({
         title: title
       })
     })
 
-    store.register('items', (items) => {
+    store.addListener('items', (items) => {
       this.setState({
         count: items.length,
         item: items[items.length - 1]

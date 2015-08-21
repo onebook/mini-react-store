@@ -2,13 +2,14 @@
 
 const isArray = Array.isArray
 
-class Store {
+class Base {
   constructor(opst) {
     opst = opst || {}
     const store = opst.store || {}
 
     this._store = store
     this._listeners = {}
+    this._onerror = opst.onerror || onerror
   }
 
   set(key, value) {
@@ -31,29 +32,50 @@ class Store {
   }
 
   /**
-   * @param {String} change
-   * @param {Function} listener
+   * @param {String} key
+   * @param {String} bindTo
+   * @param {Object} context (React Component Instance)
    */
-  register(change, listener) {
-    this._listeners[change] = this._listeners[change] || []
-    this._listeners[change].push(listener)
+  track(key, bindTo, context) {
+    this.addListener(key, (value) => {
+      context.setState({
+        [bindTo]: value
+      })
+    })
   }
 
-  unregister(change, listener) {
+  /**
+   * @param {String} key
+   * @param {Function} listener
+   */
+  addListener(key, listener) {
+    this._listeners[key] = this._listeners[key] || []
+    this._listeners[key].push(listener)
+  }
+
+  removeListener(key, listener) {
     // TODO
   }
 
-  _handle(change, value) {
-    let listeners = this._listeners[change]
+  _handle(key, value) {
+    let listeners = this._listeners[key]
 
     if (!isArray(listeners)) {
       return
     }
 
-    Promise.all[listeners.map((listener) => {
+    Promise.all(listeners.map((listener) => {
       return listener(value)
-    })]
+    }))
+    .then(noop)
+    .catch(this._onerror)
   }
 }
 
-export default Store
+function noop() {}
+
+function onerror(err) {
+  console.error(err)
+}
+
+export default Base

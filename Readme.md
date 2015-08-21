@@ -36,13 +36,13 @@ class Item extends React.Component {
       }
     }
 
-    store.register('title', (title) => {
+    store.addListener('title', (title) => {
       this.setState({
         title: title
       })
     })
 
-    store.register('items', (items) => {
+    store.addListener('items', (items) => {
       this.setState({
         count: items.length,
         item: items[items.length - 1]
@@ -65,6 +65,23 @@ class Item extends React.Component {
 
 React.render(<Item />, document.body)
 ```
+
+### APIs
+
+* Basic Store
+
+```js
+import Store from 'mini-react-store'
+
+const store = new Store()
+```
+
+  - `set(key, value)`
+  - `get(key)`
+  - `push(key, value)`
+  - `track(key, bindTo, context)`
+  - `addListener(key, listener)`
+  - `removeListener(key, listener)`
 
 ### License
 MIT
