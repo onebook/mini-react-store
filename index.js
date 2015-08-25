@@ -21,14 +21,30 @@ class Base {
     return this._store[key]
   }
 
+  pop(key) {
+    if (isArray(this.get(key))) {
+      let v = this.get(key).pop()
+      this._handle(key, this.get(key))
+      return v
+    }
+  }
+
+  shift(key) {
+    if (isArray(this.get(key))) {
+      let v = this.get(key).shift()
+      this._handle(key, this.get(key))
+      return v
+    }
+  }
+
   push(key, value) {
-    if (isArray(this._store[key])) {
-      this._store[key].push(value)
+    if (isArray(this.get(key))) {
+      this.get(key).push(value)
     } else {
       this._store[key] = [value]
     }
 
-    this._handle(key, this._store[key])
+    this._handle(key, this.get(key))
   }
 
   /**

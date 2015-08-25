@@ -78,6 +78,8 @@ const store = new Store()
 
   - `set(key, value)`
   - `get(key)`
+  - `pop(key)`
+  - `shift(key)`
   - `push(key, value)`
   - `track(key, bindTo, context)`
   - `addListener(key, listener)`
