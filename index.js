@@ -12,39 +12,39 @@ class Base {
     this._onerror = opst.onerror || onerror
   }
 
-  set(key, value) {
+  set(key, value, silent) {
     this._store[key] = value
-    this._handle(key, value)
+    this._handle(key, value, silent)
   }
 
   get(key) {
     return this._store[key]
   }
 
-  pop(key) {
+  pop(key, silent) {
     if (isArray(this.get(key))) {
       let v = this.get(key).pop()
-      this._handle(key, this.get(key))
+      this._handle(key, this.get(key), silent)
       return v
     }
   }
 
-  shift(key) {
+  shift(key, silent) {
     if (isArray(this.get(key))) {
       let v = this.get(key).shift()
-      this._handle(key, this.get(key))
+      this._handle(key, this.get(key), silent)
       return v
     }
   }
 
-  push(key, value) {
+  push(key, value, silent) {
     if (isArray(this.get(key))) {
       this.get(key).push(value)
     } else {
       this._store[key] = [value]
     }
 
-    this._handle(key, this.get(key))
+    this._handle(key, this.get(key), silent)
   }
 
   /**
@@ -78,7 +78,11 @@ class Base {
     // TODO
   }
 
-  _handle(key, value) {
+  _handle(key, value, silent) {
+    if (silent) {
+      return
+    }
+
     let listeners = this._listeners[key]
 
     if (!isArray(listeners)) {

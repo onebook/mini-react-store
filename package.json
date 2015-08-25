@@ -1,6 +1,6 @@
 {
   "name": "mini-react-store",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "no flux, only mini store for react",
   "main": "build/index.js",
   "scripts": {
