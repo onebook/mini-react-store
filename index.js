@@ -53,6 +53,11 @@ class Base {
    * @param {Object} context (React Component Instance)
    */
   track(key, bindTo, context) {
+    if (typeof bindTo === 'object') {
+      context = bindTo
+      bindTo = key
+    }
+
     this.addListener(key, (value) => {
       context.setState({
         [bindTo]: value
