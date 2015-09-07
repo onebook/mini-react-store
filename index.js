@@ -1,5 +1,6 @@
 'use strict'
 
+import objAssign from 'object-assign'
 const isArray = Array.isArray
 
 class Base {
@@ -10,6 +11,19 @@ class Base {
     this._store = store
     this._listeners = {}
     this._onerror = opst.onerror || onerror
+  }
+
+  /**
+   * @param {String} key
+   * @param {Object} value
+   * @param {Boolean} silent
+   */
+  assign(key, value, silent) {
+    let data = this._store[key] || {}
+    data = objAssign(data, value)
+
+    this._store[key] = data
+    this._handle(key, data, silent)
   }
 
   set(key, value, silent) {
@@ -75,7 +89,19 @@ class Base {
   }
 
   removeListener(key, listener) {
-    // TODO
+    let listeners = this._listeners[key]
+
+    if (listeners && listeners.length) {
+      for (let i = 0; i < listeners.length; i++) {
+        if (listener === listeners[i]) {
+          listeners.splice(i, 1)
+        }
+      }
+    }
+  }
+
+  removeAllListeners(key) {
+    delete this._listeners[key]
   }
 
   _handle(key, value, silent) {

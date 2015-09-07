@@ -23,10 +23,6 @@ const store = new Store({
   }
 })
 
-const now = () => {
-  return Date.now() % 1000000
-}
-
 setInterval(() => {
   store.set('title', 'new title - ' + now())
 }, 5000)
@@ -36,6 +32,12 @@ setInterval(() => {
     name: 'new - ' + now()
   })
 }, 1000)
+
+setInterval(() => {
+  store.assign('info', {
+    desc: 'hello - ' + now()
+  })
+}, 3000)
 
 /**
  * component
@@ -108,6 +110,24 @@ class Item2 extends React.Component {
         item: items[items.length - 1]
       })
     })
+
+    store.addListener('info', (info) => {
+      this.setState({
+        desc: info.desc
+      })
+    })
+
+    store.addListener('info', log)
+
+    setTimeout(() => {
+      console.info('removeListener: info')
+      store.removeListener('info', log)
+    }, 10000)
+
+    setTimeout(() => {
+      console.log('removeAllListeners: info')
+      store.removeAllListeners('info')
+    }, 15000)
   }
 
   render() {
@@ -117,6 +137,7 @@ class Item2 extends React.Component {
         <p>
           <div>{this.state.count}</div>
           <div>{this.state.item.name}</div>
+          <div>{this.state.desc}</div>
         </p>
       </div>
     )
@@ -130,4 +151,16 @@ class Item2 extends React.Component {
 window.init = function() {
   React.render(<Item1 />, document.querySelector('#item1'))
   React.render(<Item2 />, document.querySelector('#item2'))
+}
+
+/**
+ * utils
+ */
+
+function now() {
+  return Date.now() % 1000000
+}
+
+function log() {
+  console.log('just for test - %d', now())
 }

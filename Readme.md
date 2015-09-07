@@ -76,6 +76,7 @@ import Store from 'mini-react-store'
 const store = new Store()
 ```
 
+  - `assign(key, value)`
   - `set(key, value)`
   - `get(key)`
   - `pop(key)`
@@ -83,6 +84,7 @@ const store = new Store()
   - `push(key, value)`
   - `track(key, bindTo, context)`
   - `addListener(key, listener)`
+  - `removeAllListener(key)`
   - `removeListener(key, listener)`
 
 ### License

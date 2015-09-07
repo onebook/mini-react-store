@@ -1,15 +1,14 @@
 'use strict'
 
 const path = require('path')
-const d = __dirname
 
 module.exports = {
   entry: {
-    index: path.join(d, './index'),
+    index: path.join(__dirname, 'index'),
   },
 
   output: {
-    path: path.join(d, './build'),
+    path: path.join(__dirname, '../dest'),
     filename: '[name].js'
   },
 

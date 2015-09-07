@@ -1,6 +1,6 @@
 {
   "name": "mini-react-store",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "no flux, only mini store for react",
   "main": "build/index.js",
   "scripts": {
@@ -27,5 +27,8 @@
     "babel-loader": "5",
     "react": "0",
     "webpack": "1"
+  },
+  "dependencies": {
+    "object-assign": "4"
   }
 }
